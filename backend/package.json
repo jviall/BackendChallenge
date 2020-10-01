@@ -29,6 +29,9 @@
     "prebuild": "rm -rf dist/* && eslint . --fix --ext .ts",
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "ts-node ."
+    "start": "ts-node .",
+    "start:clean": "npm run migration:revert && npm run migration:run && npm run start",
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert"
   }
 }
