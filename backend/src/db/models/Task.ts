@@ -4,6 +4,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   ManyToOne,
+  JoinTable
 } from "typeorm";
 import TaskGroup from "./TaskGroup";
 
@@ -19,6 +20,7 @@ export default class Task extends BaseEntity {
   // dependsOn: Task[];
   // @ManyToMany((type) => Task, (task) => task.dependsOn)
   // dependedOnBy: Task[];
-  @ManyToOne(() => TaskGroup, (group) => group.tasks)
-  group: TaskGroup;
+  @ManyToOne(() => TaskGroup, (group) => group.tasks, { eager: true })
+  @JoinTable()
+  group: TaskGroup | null;
 }

@@ -8,7 +8,7 @@ export class MakeSchema implements MigrationInterface {
       'CREATE TABLE "TaskGroup" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL)'
     );
     await queryRunner.query(
-      'CREATE TABLE "Task" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "completed" boolean NOT NULL DEFAULT (0), "groupId" integer, CONSTRAINT "FK_GROUPID" FOREIGN KEY ("groupId") REFERENCES "TaskGroup" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION)'
+      'CREATE TABLE "Task" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "completed" boolean NOT NULL DEFAULT (0), "groupId" integer NULL, CONSTRAINT "FK_GROUPID" FOREIGN KEY ("groupId") REFERENCES "TaskGroup" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION)'
     );
   }
 

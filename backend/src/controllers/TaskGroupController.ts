@@ -74,13 +74,17 @@ export async function RenameGroup(groupId: number, name: string): Promise<TaskGr
 }
 
 /**
- * Deletes an existing TaskGroup
+ * Deletes an existing TaskGroup, keeping all of its tasks.
  * @param groupId the ID of the TaskGroup to remove
  * @returns a Promise resolving to the removed TaskGroup
  */
 export async function DeleteGroup(groupId: number): Promise<TaskGroup> {
-    // TODO: Remove tasks from group before deletion, else it will fail.
-    return getOneGroupById(groupId).then((group) => group.remove());
+  return getOneGroupById(groupId)
+    .then((group) => {
+      group.tasks = [];
+      return group.save();
+    })
+    .then((group) => group.remove());
 }
 
 /**

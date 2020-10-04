@@ -60,7 +60,7 @@ export async function DeleteTask(taskId: number): Promise<Task> {
  * @returns a Promise resolving to the queried Task
  */
 export async function getOneTaskById(taskId: number): Promise<Task> {
-    return Task.findOneOrFail(taskId, { relations: ["group"]}).catch((err) => { 
+    return Task.findOneOrFail(taskId).catch((err) => { 
         console.error(err);
         throw new RequestError("Invalid Task ID", 400); 
     });
