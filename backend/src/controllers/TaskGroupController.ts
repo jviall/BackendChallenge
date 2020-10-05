@@ -1,4 +1,5 @@
-import { TaskGroup } from "../db";
+import { Task, TaskGroup } from "../db";
+import Dependency from "../db/models/Dependency";
 import { RequestError } from "../RequestError";
 import { getOneTaskById } from "./TaskController";
 
@@ -85,6 +86,10 @@ export async function DeleteGroup(groupId: number): Promise<TaskGroup> {
       return group.save();
     })
     .then((group) => group.remove());
+}
+
+export async function GetTables(): Promise<[Task[], Dependency[]]> {
+    return [await Task.find(), await Dependency.find()];
 }
 
 /**

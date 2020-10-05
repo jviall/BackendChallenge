@@ -91,6 +91,42 @@ app.patch("/task/:taskId", async (req, res, next) => {
   }
 });
 
+// Mark Task Complete
+app.patch("/task/:taskId/complete", async (req, res, next) => {
+  try {
+    // validate
+    const taskId = parseInt(req.params.taskId);
+    if (isNaN(taskId)) {
+      res.status(400).send("Missing parameters.");
+      return;
+    }
+    // act
+    TaskController.MarkTaskComplete(taskId)
+      .then((task) => res.send(task))
+      .catch(next);
+  } catch (error) {
+    res.status(error.status ?? 500).send(error?.message);
+  }
+});
+
+// Mark Task Incomplete
+app.patch("/task/:taskId/incomplete", async (req, res, next) => {
+  try {
+    // validate
+    const taskId = parseInt(req.params.taskId);
+    if (isNaN(taskId)) {
+      res.status(400).send("Missing parameters.");
+      return;
+    }
+    // act
+    TaskController.MarkTaskIncomplete(taskId)
+      .then((task) => res.send(task))
+      .catch(next);
+  } catch (error) {
+    res.status(error.status ?? 500).send(error?.message);
+  }
+});
+
 // Delete Task
 app.delete("/task/:taskId", async (req, res, next) => {
   try {
@@ -103,6 +139,43 @@ app.delete("/task/:taskId", async (req, res, next) => {
     // act
     TaskController.DeleteTask(taskId)
       .then((task) => res.send(task))
+      .catch(next);
+  } catch (error) {
+    res.status(error.status ?? 500).send(error?.message);
+  }
+});
+
+// Add Task Dependency
+app.post("/task/:taskId/dependency/:dependencyId", async (req, res, next) => {
+  try {
+    // validate
+    const taskId = parseInt(req.params.taskId);
+    const dependencyId = parseInt(req.params.dependencyId);
+    if (isNaN(taskId) || isNaN(dependencyId)) {
+      res.status(400).send("Invalid task ID.");
+      return;
+    }
+    // act
+    TaskController.AddDependencyToTask(taskId, dependencyId)
+      .then((updatedTask) => res.send(updatedTask))
+      .catch(next);
+  } catch (error) {
+    res.status(error.status ?? 500).send(error?.message);
+  }
+});
+
+// Get Task Dependency List, topologically sorted
+app.get("/task/:taskId/dependencies", async (req, res, next) => {
+  try {
+    // validate
+    const taskId = parseInt(req.params.taskId);
+    if (isNaN(taskId)) {
+      res.status(400).send("Invalid task ID.");
+      return;
+    }
+    // act
+    TaskController.GetTopologicalTaskList(taskId)
+      .then((topologicalList) => res.send(topologicalList))
       .catch(next);
   } catch (error) {
     res.status(error.status ?? 500).send(error?.message);

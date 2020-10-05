@@ -4,9 +4,18 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   ManyToOne,
-  JoinTable
 } from "typeorm";
 import TaskGroup from "./TaskGroup";
+
+export const STATE:
+{ INCOMPLETE: "Incomplete", // state "type" isn't a string *eyeroll*
+  LOCKED: "Locked", 
+  COMPLETE: "Complete"
+} = {
+  INCOMPLETE: "Incomplete",
+  LOCKED: "Locked",
+  COMPLETE: "Complete"
+};
 
 @Entity("Task")
 export default class Task extends BaseEntity {
@@ -14,13 +23,8 @@ export default class Task extends BaseEntity {
   id: number;
   @Column("varchar")
   name: string;
-  @Column({ type: "boolean", default: false })
-  completed: boolean;
-  // @OneToMany((type) => Task, (task) => task.dependedOnBy)
-  // dependsOn: Task[];
-  // @ManyToMany((type) => Task, (task) => task.dependsOn)
-  // dependedOnBy: Task[];
-  @ManyToOne(() => TaskGroup, (group) => group.tasks, { eager: true })
-  @JoinTable()
-  group: TaskGroup | null;
+  @Column({default: STATE.INCOMPLETE})
+  state: string;
+  @ManyToOne(() => TaskGroup, (group) => group.tasks, { eager: true, nullable: true })
+  group: TaskGroup;
 }
