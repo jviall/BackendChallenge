@@ -4,7 +4,7 @@ import { Task } from "../db";
 /**
  * Useful for representing a Task along with the Tasks it directly depends on, or directly depend on it.
  */
-export default interface TaskDTO {
+export default interface ITaskDTO {
     id: number;
     name: string;
     state: 0 | 1 | 2; // Incomplete, Locked, Complete

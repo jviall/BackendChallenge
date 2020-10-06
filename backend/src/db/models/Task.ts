@@ -5,7 +5,8 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
 } from "typeorm";
-import TaskGroup from "./TaskGroup";
+import { TASK_TABLE } from "../queries";
+import Group from "./Group";
 
 export const STATE:
 { INCOMPLETE: "Incomplete", // state "type" isn't a string *eyeroll*
@@ -17,7 +18,7 @@ export const STATE:
   COMPLETE: "Complete"
 };
 
-@Entity("Task")
+@Entity(TASK_TABLE)
 export default class Task extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,6 +26,6 @@ export default class Task extends BaseEntity {
   name: string;
   @Column({default: STATE.INCOMPLETE})
   state: string;
-  @ManyToOne(() => TaskGroup, (group) => group.tasks, { eager: true, nullable: true })
-  group: TaskGroup;
+  @ManyToOne(() => Group, (group) => group.tasks, { eager: true, nullable: true })
+  group: Group;
 }

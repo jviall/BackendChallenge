@@ -3,14 +3,15 @@ import {
   Entity,
   PrimaryColumn
 } from "typeorm";
+import { DEP_TABLE } from "../queries";
 
 /**
  * A table of edges between dependent Tasks
  */
-@Entity("Dependency")
+@Entity(DEP_TABLE)
 export default class Dependency extends BaseEntity {
   @PrimaryColumn()
-  tFrom: number;
+  taskFrom: number;
   @PrimaryColumn()
-  tTo: number;
+  taskTo: number;
 }
