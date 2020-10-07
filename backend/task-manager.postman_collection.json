@@ -30,14 +30,19 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
+					"mode": "urlencoded",
+					"urlencoded": [
 						{
 							"key": "name",
-							"value": "This is my task.",
+							"value": "A task.",
 							"type": "text"
 						}
-					]
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://{{host}}:{{port}}/task",
@@ -58,25 +63,28 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "This is my task.",
-							"type": "text"
-						}
-					]
-				},
 				"url": {
-					"raw": "http://{{host}}:{{port}}/task",
+					"raw": "http://{{host}}:{{port}}/task/:taskId/dependency/:dependencyId",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
 					],
 					"port": "{{port}}",
 					"path": [
-						"task"
+						"task",
+						":taskId",
+						"dependency",
+						":dependencyId"
+					],
+					"variable": [
+						{
+							"key": "taskId",
+							"value": "1"
+						},
+						{
+							"key": "dependencyId",
+							"value": "2"
+						}
 					]
 				}
 			},
@@ -138,7 +146,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{host}}:{{port}}/task/:taskId",
+					"raw": "http://{{host}}:{{port}}/task/:taskId/dependencies",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
@@ -146,7 +154,8 @@
 					"port": "{{port}}",
 					"path": [
 						"task",
-						":taskId"
+						":taskId",
+						"dependencies"
 					],
 					"variable": [
 						{
@@ -168,7 +177,7 @@
 					"urlencoded": [
 						{
 							"key": "name",
-							"value": "My New Name",
+							"value": "New Task Name",
 							"type": "text"
 						}
 					],
@@ -294,8 +303,14 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Some Tasks\"\r\n}",
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Group 1",
+							"type": "text"
+						}
+					],
 					"options": {
 						"raw": {
 							"language": "json"
@@ -364,7 +379,7 @@
 					"urlencoded": [
 						{
 							"key": "name",
-							"value": "My New Group Name",
+							"value": "New Group Name",
 							"type": "text"
 						}
 					],
@@ -465,12 +480,12 @@
 	],
 	"variable": [
 		{
-			"id": "a776c7cc-8811-4887-b666-56342ad69ea5",
+			"id": "e75dc569-9a44-479e-bd66-d7fe8c02245a",
 			"key": "host",
 			"value": "localhost"
 		},
 		{
-			"id": "2c43e8e8-1c90-42f5-b6da-aee970467bd6",
+			"id": "1eba95a3-ec28-4a77-b2aa-2b0d1e952751",
 			"key": "port",
 			"value": "5000"
 		}

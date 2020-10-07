@@ -2,6 +2,7 @@
 * Install dependencies with `yarn` in the `/backend` directory. 
 * To start-up the app with a clean database, run `yarn start:clean`.
 * Otherwise if you'd like to retain the database from your last run: `yarn start`
+* There are a few tests written mostly for example: `yarn test`
 
 The project is setup for a Linux environment, so if you're on Windows, use GitBash or something similar.
 
