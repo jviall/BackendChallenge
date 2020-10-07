@@ -4,15 +4,15 @@ import helmet from "helmet";
 
 import { connect, DatabaseManager, Task } from "./db";
 import { TaskController } from "./controllers/TaskController";
-import { GroupController } from "./controllers/TaskGroupController";
+import { GroupController } from "./controllers/GroupController";
 import { RequestError } from "./util/RequestError";
 import { sanitizeNumber, sanitizeString } from "./util/utils";
 
 // init
-const app = express();
 const databaseManager = new DatabaseManager();
 const taskController = new TaskController(databaseManager);
 const groupController = new GroupController(databaseManager);
+export const app = express();
 (async () => {
   await connect();
 })();

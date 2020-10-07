@@ -1,4 +1,3 @@
-import { getConnection } from "typeorm";
 import { Task, STATE, DatabaseManager, SELECT_TASK_DEPENDENCY_LIST, SELECT_TASK_TOPOLOGICAL_LIST } from "../db";
 import Dependency from "../db/models/Dependency";
 import ITaskDTO from "../models/ITaskDTO";
@@ -54,8 +53,8 @@ export class TaskController {
      */
     public async RenameTask(taskId: number, name: string): Promise<Task> {
         return this.DB.getOneTaskById(taskId).then((task) => {
-        task.name = name;
-        return task.save();
+            task.name = name;
+            return task.save();
         });
     }
 
@@ -71,13 +70,7 @@ export class TaskController {
             await this.unblockDependency(taskId);
         }
         // Delete dependencies to/from
-        await getConnection()
-        .createQueryBuilder()
-        .delete()
-        .from(Dependency)
-        .where("tFrom = :taskId", { taskId })
-        .where("tTo = :taskId", { taskId })
-        .execute();
+        await this.DB.deleteDependenciesForTask(taskId);
         return task.remove();
     }
 

@@ -17,13 +17,18 @@
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
     "@types/express": "^4.17.8",
+    "@types/jest": "^26.0.14",
+    "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.5.2",
     "prettier": "^2.1.2",
     "sqlite3": "^5.0.0",
+    "supertest": "^5.0.0",
+    "ts-jest": "^26.4.1",
     "typeorm": "^0.2.28"
   },
   "scripts": {
@@ -32,6 +37,7 @@
     "prestart": "npm run build",
     "start": "ts-node .",
     "start:clean": "npm run migration:revert && npm run migration:run && npm run start",
+    "test": "jest --forceExit",
     "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert"
   }

@@ -24,7 +24,7 @@ export default class Task extends BaseEntity {
   id: number;
   @Column("varchar")
   name: string;
-  @Column({default: STATE.INCOMPLETE})
+  @Column({default: STATE.INCOMPLETE })
   state: string;
   @ManyToOne(() => Group, (group) => group.tasks, { eager: true, nullable: true })
   group: Group;
